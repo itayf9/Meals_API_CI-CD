@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Create log.txt file
-        run: touch log.txt
+        run: touch /log.txt
       - name: Insert date and names to log.txt
         run: |
           echo ${{ env.DATE }} >> log.txt
@@ -34,11 +34,11 @@ jobs:
         if: failure()
         run: echo "image not able to be built" >> log.txt
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: meals-service
-          path: /tmp/image.tar
+#      - name: Upload artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: meals-service
+#          path: /tmp/image.tar
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
