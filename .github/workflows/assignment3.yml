@@ -34,15 +34,15 @@ jobs:
         if: failure()
         run: echo "image not able to be built" >> log.txt
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: meals-service
-          path: /tmp/image.tar
+#      - name: Upload artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: meals-service
+#          path: /tmp/image.tar
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: log-file
-          path: /log.txt
+          path: log.txt
 
