@@ -41,8 +41,8 @@ jobs:
           path: /tmp/image.tar
 
       - name: Upload artifact
-          uses: actions/upload-artifact@v3
-          with:
-            name: log-file
-            path: /log.txt
+        uses: actions/upload-artifact@v3
+        with:
+          name: log-file
+          path: /log.txt
 
