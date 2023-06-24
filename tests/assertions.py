@@ -1,9 +1,8 @@
-import string
 import sys
 
 import requests
 
-import connectionController
+from tests import connectionController
 
 
 def assert_status_code(response: requests.Response, status_code: int):
