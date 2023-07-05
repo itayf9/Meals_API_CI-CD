@@ -99,9 +99,9 @@ jobs:
           echo "TESTS_RES_CODE=$?" >> $GITHUB_ENV
 
       - name: test ls
-          run: ls
+        run: ls
       - name: test pwd
-          run: pwd
+        run: pwd
 
       - name: Check if all tests are succesful and write to log file
         if: always()
