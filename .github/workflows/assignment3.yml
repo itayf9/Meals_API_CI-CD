@@ -65,10 +65,10 @@ jobs:
         run: docker ps
       - name: Write to log file when running container succeed
         if: success()
-        run: echo "Container up and running" >> log.txt
+        run: echo "Container up and running" >> log-file/log.txt
       - name: Write to log file when running container failed
         if: failure()
-        run: echo "Container failed to run" >> log.txt
+        run: echo "Container failed to run" >> log-file/log.txt
 
       #     2. set up python and pytest environment
       - name: Checkout
@@ -87,14 +87,16 @@ jobs:
         run: |
           cd tests
           pytest -v assn3_tests.py > assn3_test_results.txt
+          TESTS_RES_CODE=$?
+          echo "TESTS_RES_CODE=$(?)" >> $GITHUB_ENV
 
       - name: Check if all tests are succesful and write to log file
         if: always()
         run: |
-          if [[ $? -ne 0 ]]; then
-            echo "tests failed" >> log.txt
+          if [[ ${{ env.TESTS_RES_CODE }} -ne 0 ]]; then
+            echo "tests failed" >> log-file/log.txt
           else
-            echo "tests succeeded" >> log.txt
+            echo "tests succeeded" >> log-file/log.txt
           fi
       - name: upload test results
         if: always()   #always perform this step even if tests fail, to see results
@@ -108,4 +110,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: log-file
-          path: log.txt
+          path: log-file/log.txt
