@@ -65,10 +65,10 @@ jobs:
         run: docker ps
       - name: Write to log file when running container succeed
         if: success()
-        run: # write success to log file
+        run: echo "Container up and running" >> log.txt
       - name: Write to log file when running container failed
         if: failure()
-        run: # write fail to log file
+        run: echo "Container failed to run" >> log.txt
 
       #     2. set up python and pytest environment
       - name: Checkout
@@ -87,15 +87,25 @@ jobs:
         run: |
           cd tests
           pytest -v assn3_tests.py > assn3_test_results.txt
-      - name: Check if all tests are succesful
-        #
-      - name: Write to log file when all tests succeed
-        #
-      - name: Write to log file when at least one test failed
-        #
+
+      - name: Check if all tests are succesful and write to log file
+        if: always()
+        run: |
+          if [[ $? -ne 0 ]]; then
+            echo "tests failed" >> log.txt
+          else
+            echo "tests succeeded" >> log.txt
+          fi
       - name: upload test results
-        if: always()  # always perform this step even if tests fail, to see results
+        if: always()   #always perform this step even if tests fail, to see results
         uses: actions/upload-artifact@v3
         with:
           name: test_results
           path: tests/assn3_test_results.txt
+
+      - name: upload log file artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: log-file
+          path: log.txt
