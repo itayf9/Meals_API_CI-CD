@@ -52,6 +52,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       #    1. download image and run it in a container
       - name: Download artifact
         uses: actions/download-artifact@v3  # downloads all artifacts
@@ -75,8 +77,6 @@ jobs:
         run: echo "Container failed to run" >> /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
 
       #     2. set up python and pytest environment
-      - name: Checkout
-        uses: actions/checkout@v3
       - name: test ls
         run: ls
       - name: test pwd
