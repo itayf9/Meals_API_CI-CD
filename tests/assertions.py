@@ -2,7 +2,7 @@ import sys
 
 import requests
 
-from tests import connectionController
+import connectionController
 
 
 def assert_status_code(response: requests.Response, status_code: int):
@@ -25,5 +25,5 @@ def assert_valid_added_resource(response: requests.Response):
 
 def assert_not_existed_meal(meal_identifier: any) -> None:
     response = connectionController.http_get(f"meals/{meal_identifier}")
-    assert_status_code(response, error_code=404)
+    assert_status_code(response, status_code=404)
     assert_ret_value(response, returned_value=-5)
