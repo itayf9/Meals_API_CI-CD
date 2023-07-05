@@ -1,5 +1,6 @@
 import requests
-from tests import connectionController
+
+from tests.connectionController import *
 
 dishes_resource = "dishes"
 
@@ -11,12 +12,12 @@ def handle_query_txt(input_file_path: str):
     text_of_results_messages = ""
 
     for dish_name in lines:
-        response_from_post_dish = connectionController.http_post(dishes_resource, dish_name)
+        response_from_post_dish = http_post(dishes_resource, dish_name)
         if response_from_post_dish.status_code != 201:
             exit(1)
 
         id_of_created_dish = response_from_post_dish.json()
-        response_from_get_dish_by_id = connectionController.http_get(f"dishes/{id_of_created_dish}")
+        response_from_get_dish_by_id = http_get(f"dishes/{id_of_created_dish}")
         if response_from_get_dish_by_id != 200:
             exit(1)
 
