@@ -142,7 +142,7 @@ jobs:
       run: |
         PATH_OF_QUERY_FILE=$PWD
         QUERY_FILE_NAME="${PATH_OF_QUERY_FILE}/query.txt"
-        cd query
+        cd tests
         python3 -c "import query_handler; query_handler.handle_query_txt$({QUERY_FILE_NAME})" >> response.txt
 
     - name: upload response artifact
