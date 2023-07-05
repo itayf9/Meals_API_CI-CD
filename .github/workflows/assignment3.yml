@@ -69,14 +69,18 @@ jobs:
         run: docker ps
       - name: Write to log file when running container succeed
         if: success()
-        run: echo "Container up and running" >> log-file/log.txt
+        run: echo "Container up and running" >> /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
       - name: Write to log file when running container failed
         if: failure()
-        run: echo "Container failed to run" >> log-file/log.txt
+        run: echo "Container failed to run" >> /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
 
       #     2. set up python and pytest environment
       - name: Checkout
         uses: actions/checkout@v3
+      - name: test ls
+        run: ls
+      - name: test pwd
+        run: pwd
       - name: Set up Python
         uses: actions/setup-python@v4
       - name: Install dependencies
@@ -94,13 +98,18 @@ jobs:
           TESTS_RES_CODE=$?
           echo "TESTS_RES_CODE=$?" >> $GITHUB_ENV
 
+      - name: test ls
+          run: ls
+      - name: test pwd
+          run: pwd
+
       - name: Check if all tests are succesful and write to log file
         if: always()
         run: |  
           if [[ ${{ env.TESTS_RES_CODE }} -ne 0 ]]; then
-            echo "tests failed" >> log-file/log.txt
+            echo "tests failed" >> /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
           else
-            echo "tests succeeded" >> log-file/log.txt
+            echo "tests succeeded" >> /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
           fi
       - name: upload test results
         if: always()   #always perform this step even if tests fail, to see results
@@ -114,4 +123,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: log-file
-          path: log-file/log.txt
+          path: /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
