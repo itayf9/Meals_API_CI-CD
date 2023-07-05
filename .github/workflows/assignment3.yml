@@ -55,6 +55,10 @@ jobs:
       #    1. download image and run it in a container
       - name: Download artifact
         uses: actions/download-artifact@v3  # downloads all artifacts
+      - name: test ls
+        run: ls
+      - name: test pwd
+        run: pwd
       - name: Load Docker images from previous workflows
         run: docker load --input meals-service-docker-image/image.tar
       - name: check meals-service image is loaded
@@ -93,7 +97,6 @@ jobs:
       - name: Check if all tests are succesful and write to log file
         if: always()
         run: |  
-          cd ..
           if [[ ${{ env.TESTS_RES_CODE }} -ne 0 ]]; then
             echo "tests failed" >> log-file/log.txt
           else
