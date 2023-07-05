@@ -92,7 +92,8 @@ jobs:
 
       - name: Check if all tests are succesful and write to log file
         if: always()
-        run: |
+        run: |  
+          cd ..
           if [[ ${{ env.TESTS_RES_CODE }} -ne 0 ]]; then
             echo "tests failed" >> log-file/log.txt
           else
