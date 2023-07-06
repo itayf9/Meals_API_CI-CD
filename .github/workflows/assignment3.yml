@@ -86,13 +86,14 @@ jobs:
       - name: Test with pytest  # additionally use ruff or other lint checkers
         run: |
           cd tests
+          echo "TESTS_RES_CODE=1" >> $GITHUB_ENV
           pytest -v assn3_tests.py > assn3_test_results.txt
           echo "TESTS_RES_CODE=$?" >> $GITHUB_ENV
 
       - name: Check if all tests are succesful and write to log file
         if: always()
         run: |  
-          if [[ [-z ${{ env.TESTS_RES_CODE }}] || ${{ env.TESTS_RES_CODE }} -ne 0 ]]; then
+          if [[ ${{ env.TESTS_RES_CODE }} -ne 0 ]]; then
             echo "tests failed" >> /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
           else
             echo "tests succeeded" >> /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
