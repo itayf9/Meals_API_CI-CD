@@ -87,7 +87,6 @@ jobs:
         run: |
           cd tests
           pytest -v assn3_tests.py > assn3_test_results.txt
-          TESTS_RES_CODE=$?
           echo "TESTS_RES_CODE=$?" >> $GITHUB_ENV
 
       - name: Check if all tests are succesful and write to log file
