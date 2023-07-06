@@ -28,7 +28,7 @@ def handle_query_txt(input_file_path: str):
         sodium = created_dish["sodium"]
         sugar = created_dish["sugar"]
 
-        result_message_of_created_dish = f"{dish_name} contains {cal} calories, {sodium} mgs of sodium, and {sugar} grams of sugar\n"
+        result_message_of_created_dish = f"{dish_name} contains {format(cal, '.6f')} calories, {format(sodium, '.6f')} mgs of sodium, and {format(sugar, '.6f')} grams of sugar\n"
         text_of_results_messages += result_message_of_created_dish
 
     print(text_of_results_messages)
