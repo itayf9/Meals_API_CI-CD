@@ -14,12 +14,14 @@ def handle_query_txt(input_file_path: str):
     for dish_name in lines:
         response_from_post_dish = cc.http_post(dishes_resource, dish_name)
         if response_from_post_dish.status_code != 201:
-            exit(1)
+            text_of_results_messages += f"{response_from_post_dish.status_code},{response_from_post_dish.json()}"
+            break
 
         id_of_created_dish = response_from_post_dish.json()
         response_from_get_dish_by_id = cc.http_get(f"dishes/{id_of_created_dish}")
         if response_from_get_dish_by_id != 200:
-            exit(1)
+            text_of_results_messages += f"{response_from_get_dish_by_id.status_code},{response_from_get_dish_by_id.json()}"
+            break
 
         created_dish = response_from_get_dish_by_id.json()
         cal = created_dish["cal"]
