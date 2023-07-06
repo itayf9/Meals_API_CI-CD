@@ -86,7 +86,7 @@ jobs:
       - name: Test with pytest  # additionally use ruff or other lint checkers
         run: |
           cd tests
-          pytest -v assn3_tests.py > assn3_test_results.txt
+          pytest -v --exitfirst assn3_tests.py > assn3_test_results.txt
           echo "TESTS_RES_CODE=$?" >> $GITHUB_ENV
 
       - name: Check if all tests are succesful and write to log file
