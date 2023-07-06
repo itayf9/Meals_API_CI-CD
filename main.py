@@ -1,7 +1,6 @@
 import requests
 import json
 from flask import Flask, jsonify, request
-# from flask_restful import Resource, Api, reqparse
 
 from config import ninja_api_key
 from dish import DishEncoder
@@ -12,11 +11,6 @@ from meals import all_meals
 
 # initialize
 app = Flask(__name__)
-# api = Api(app)
-
-
-# all_meals = Meals()
-# all_dishes = Dishes()
 
 @app.route('/dishes', methods=['GET'])
 def all_dishes_get():
@@ -258,22 +252,6 @@ def meals_name_delete(name):
             return jsonify(key), 200
 
     return jsonify(-5), 404
-
-# meals endpoint return meal id -done
-#
-# all return values should be int and not string -done
-#
-# handle dish with more than one igredient from ninja -done
-#
-# all meals endpoint
-#
-# fix response of get /dishs -done
-#
-# fix  get dishes/id not specified -done
-#
-# fix put meals/id when the meal with the id does not exist- no need
-#
-# fix duplicated dish added- happend once dont know why
 
 
 if __name__ == '__main__':

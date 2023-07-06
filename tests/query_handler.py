@@ -1,5 +1,3 @@
-import requests
-
 import connectionController as cc
 
 dishes_resource = "dishes"

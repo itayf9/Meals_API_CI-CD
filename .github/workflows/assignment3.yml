@@ -34,13 +34,13 @@ jobs:
         if: failure()
         run: echo "image not able to be built" >> log.txt
 
-      - name: Upload artifact
+      - name: Upload image artifact
         uses: actions/upload-artifact@v3
         with:
           name: meals-service-docker-image
           path: /tmp/image.tar
 
-      - name: Upload artifact
+      - name: Upload log file artifact
         uses: actions/upload-artifact@v3
         with:
           name: log-file
@@ -55,13 +55,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       #    1. download image and run it in a container
-      - name: Download artifact
+      - name: Download all artifacts
         uses: actions/download-artifact@v3  # downloads all artifacts
       - name: Load Docker images from previous workflows
         run: docker load --input meals-service-docker-image/image.tar
-      - name: check meals-service image is loaded
+      - name: Check meals-service image is loaded
         run: docker image ls
-      - name: run image in container
+      - name: Run image in container
         run: docker run -p8000:8000 meals-service &
       - name: Check container is running
         run: docker ps
@@ -98,14 +98,14 @@ jobs:
           else
             echo "tests succeeded" >> /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
           fi
-      - name: upload test results
+      - name: Upload test results
         if: always()   #always perform this step even if tests fail, to see results
         uses: actions/upload-artifact@v3
         with:
           name: test_results
           path: tests/assn3_test_results.txt
 
-      - name: upload log file artifact
+      - name: Upload log file artifact
         if: always()
         uses: actions/upload-artifact@v3
         with:
@@ -119,13 +119,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    - name: Download artifact
+    - name: Download all artifacts
       uses: actions/download-artifact@v3  # downloads all artifacts
     - name: Load Docker images from previous workflows
       run: docker load --input meals-service-docker-image/image.tar
-    - name: check meals-service image is loaded
+    - name: Check meals-service image is loaded
       run: docker image ls
-    - name: run image in container
+    - name: Run image in container
       run: docker run -p8000:8000 meals-service &
     - name: Check container is running
       run: docker ps
@@ -145,7 +145,7 @@ jobs:
         cd tests
         python3 -c "import query_handler; query_handler.handle_query_txt(\"$QUERY_FILE_NAME\")" >> response.txt
 
-    - name: upload response artifact
+    - name: Upload response artifact
       if: always()
       uses: actions/upload-artifact@v3
       with:

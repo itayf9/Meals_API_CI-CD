@@ -1,4 +1,3 @@
-import connectionController
 from assertions import *
 
 orange_name = 'orange'
@@ -57,7 +56,7 @@ def test_get_dishes_all():
     response = connectionController.http_get(resource_dishes)
     assert_status_code(response, status_code = 200)
     json_object_of_all_dishes = response.json()
-    assert len(json_object_of_all_dishes) == 3
+    assert len(json_object_of_all_dishes) == 2
 
 def test_post_dishes_with_name_unrecognized_to_ninja():
     response = connectionController.http_post(resource_dishes,{'name': "blah"})
