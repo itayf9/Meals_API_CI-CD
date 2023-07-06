@@ -92,7 +92,7 @@ jobs:
       - name: Check if all tests are succesful and write to log file
         if: always()
         run: |  
-          if [[ -z ${{ env.TESTS_RES_CODE }} || ${{ env.TESTS_RES_CODE }} -ne 0 ]]; then
+          if [[ [-z ${{ env.TESTS_RES_CODE }}] || ${{ env.TESTS_RES_CODE }} -ne 0 ]]; then
             echo "tests failed" >> /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
           else
             echo "tests succeeded" >> /home/runner/work/meals_API__CI-CD/meals_API__CI-CD/log-file/log.txt
